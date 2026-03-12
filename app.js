@@ -57,7 +57,7 @@ Remove
         li.className = "player"
         li.innerHTML = `
 <span onclick="goToPlayer('${p.username}')">${p.username}</span>
-<button onclick="removePlayer('B','${p.username}')">
+<button class="removePlayer" onclick="removePlayer('B','${p.username}')">
 Remove
 </button>
 
@@ -75,14 +75,13 @@ function goToPlayer(username) {
 
 function removePlayer(team, username) {
     if (team === "A") {
-        teamA.filter(p => p.username !== username)
+        teamA = teamA.filter(p => p.username !== username)
     }
     if (team === "B") {
-        teamB.filter(p => p.username !== username)
+        teamB = teamB.filter(p => p.username !== username)
     }
     save()
     renderHome()
-
 }
 
 function usernameExists(username) {
