@@ -15,6 +15,10 @@ function save() {
 
 }
 
+function usernameExists(username) {
+    return teamA.some(p => p.username === username) ||
+           teamB.some(p => p.username === username)
+}
 
 function renameTeam(team) {
 
@@ -32,37 +36,47 @@ function renameTeam(team) {
 
 
 function renderHome() {
-    document.getElementById("teamAName").textContent = teamAName
-    document.getElementById("teamBName").textContent = teamBName
+
+    const nameA = document.getElementById("teamAName")
+    const nameB = document.getElementById("teamBName")
+
+    if (!nameA || !nameB) return
+
+    nameA.textContent = teamAName
+    nameB.textContent = teamBName
+
     const listA = document.getElementById("teamAList")
     const listB = document.getElementById("teamBList")
+
     listA.innerHTML = ""
     listB.innerHTML = ""
+
     teamA.forEach(p => {
+
         const li = document.createElement("li")
         li.className = "player"
+
         li.innerHTML = `
+        <span onclick="goToPlayer('${p.username}')">${p.username}</span>
+        <button onclick="removePlayer('A','${p.username}')">Remove</button>
+        `
 
-<span onclick="goToPlayer('${p.username}')">${p.username}</span>
-
-<button onclick="removePlayer('A','${p.username}')">
-Remove
-</button>
-
-`
         listA.appendChild(li)
+
     })
+
     teamB.forEach(p => {
+
         const li = document.createElement("li")
         li.className = "player"
-        li.innerHTML = `
-<span onclick="goToPlayer('${p.username}')">${p.username}</span>
-<button onclick="removePlayer('B','${p.username}')">
-Remove
-</button>
 
-`
+        li.innerHTML = `
+        <span onclick="goToPlayer('${p.username}')">${p.username}</span>
+        <button onclick="removePlayer('B','${p.username}')">Remove</button>
+        `
+
         listB.appendChild(li)
+
     })
 
 }
@@ -85,14 +99,12 @@ function removePlayer(team, username) {
 
 }
 
-function usernameExists(username) {
-    return teamA.includes(username) || teamB.includes(username)
-}
-
-
 function renderAddPlayer() {
 
     const teamSelect = document.getElementById("teamSelect")
+    const form = document.getElementById("playerForm")
+
+    if (!teamSelect || !form) return
 
     teamSelect.innerHTML = `
 
@@ -105,24 +117,26 @@ ${teamBName}
 </option>
 
 `
-
-    document.getElementById("playerForm").addEventListener("submit", e => {
+    form.addEventListener("submit", e => {
 
         e.preventDefault()
-        const username = document.getElementById("username").value
-        if (usernameExists) {
+        const username = document.getElementById("username").value.trim()
+        if (usernameExists(username)) {
             document.getElementById("error").textContent = "Username already exists"
+            return
         }
+
         const player = {
             username,
             firstname: document.getElementById("firstname").value,
             lastname: document.getElementById("lastname").value,
             age: document.getElementById("age"),
             country: document.getElementById("country").value,
-            ranking: document.getElementById("ranking")
+            ranking: document.getElementById("ranking").value
 
         }
-        const team = document.getElementById("teamSelect").value
+
+        const team = teamSelect.value
         if (team === "A") {
             teamA.push(player)
         }
@@ -138,21 +152,32 @@ ${teamBName}
 
 function renderPlayerInfo() {
 
+    const profile = document.getElementById("profile")
+    if (!profile) return
+
     const username = localStorage.getItem("selectedPlayer")
 
-    const player = teamA.find(p => p.username === username)
-
-    const profile = document.getElementById("profile")
+    const player =
+        teamA.find(p => p.username === username) ||
+        teamB.find(p => p.username === username)
 
     profile.innerHTML = `
+
 <div class="profile">
+
 <h2>${player?.username}</h2>
+
 <p><b>Name:</b> ${player?.firstname} ${player?.lastname}</p>
+
 <p><b>Age:</b> ${player?.age}</p>
+
 <p><b>Country:</b> ${player?.country}</p>
+
 <p><b>Ranking:</b> ${player?.ranking}</p>
+
 <br>
-<button onclick="window.location='home.html'">
+
+<button onclick="window.location='index.html'">
 Back
 </button>
 
@@ -161,3 +186,8 @@ Back
 `
 
 }
+
+
+renderHome()
+renderAddPlayer()
+renderPlayerInfo()
