@@ -4,6 +4,8 @@ let teamB = JSON.parse(localStorage.getItem("teamB")) || []
 let teamAName = localStorage.getItem("teamAName") || "Team A"
 let teamBName = localStorage.getItem("teamBName") || "Team B"
 
+const searchPlayerInput = document.getElementById("searchPlayerInput")
+const searchResult = document.getElementById("searchResult")
 
 function save() {
 
@@ -161,3 +163,30 @@ Back
 `
 
 }
+
+function renderSearchPlayer() {
+    const query = searchPlayerInput.value.toLowerCase()
+    searchResult.innerHTML = ""
+
+    const allPlayers = [...teamA, ...teamB]
+
+    const filteredPlayers = allPlayers.filter(player =>
+        player.username.toLowerCase().includes(query)
+    )
+
+    // Om ingen spelare hittas
+    if (filteredPlayers.length === 0 && query !== "") {
+        const li = document.createElement("li")
+        li.textContent = "No players found"
+        searchResult.appendChild(li)
+        return
+    }
+
+    filteredPlayers.forEach(player => {
+        const li = document.createElement("li")
+        li.textContent = player.username
+        searchResult.appendChild(li)
+    })
+}
+
+searchPlayerInput.addEventListener("input", renderSearchPlayer)
