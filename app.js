@@ -108,9 +108,10 @@ function renderHome() {
         const li = document.createElement("li")
         li.className = "player"
         li.innerHTML = `
-<span onclick="goToPlayer('${p.username}')">${p.username}</span>
-<button onclick="removePlayer('A','${p.username}')">Remove</button>
-`
+            <span onclick="goToPlayer('${p.username}')">${p.username}</span>
+            <button onclick="editPlayer('A','${p.username}')">Edit</button>
+            <button onclick="removePlayer('A','${p.username}')">Remove</button>
+        `
         listA.appendChild(li)
     })
 
@@ -118,9 +119,10 @@ function renderHome() {
         const li = document.createElement("li")
         li.className = "player"
         li.innerHTML = `
-<span onclick="goToPlayer('${p.username}')">${p.username}</span>
-<button class="removePlayer" onclick="removePlayer('B','${p.username}')">Remove</button>
-`
+            <span onclick="goToPlayer('${p.username}')">${p.username}</span>
+            <button onclick="editPlayer('B','${p.username}')">Edit</button>
+            <button class="removePlayer" onclick="removePlayer('B','${p.username}')">Remove</button>
+        `
         listB.appendChild(li)
     })
 }
@@ -142,32 +144,32 @@ function removePlayer(team, username) {
 }
 
 function usernameExists(username) {
-    return teamA.includes(username) || teamB.includes(username)
+    return teamA.some(p => p.username === username) || teamB.some(p => p.username === username)
 }
 
 function renderAddPlayer() {
     const teamSelect = document.getElementById("teamSelect")
 
     teamSelect.innerHTML = `
-<option value="A" ${teamA.length >= 5 ? "disabled" : ""}>${teamAName}</option>
-<option value="B" ${teamB.length >= 5 ? "disabled" : ""}>${teamBName}</option>
-`
+        <option value="A" ${teamA.length >= 5 ? "disabled" : ""}>${teamAName}</option>
+        <option value="B" ${teamB.length >= 5 ? "disabled" : ""}>${teamBName}</option>
+    `
 
     document.getElementById("playerForm").addEventListener("submit", e => {
         e.preventDefault()
         const username = document.getElementById("username").value.trim()
 
-        if (usernameExists(username)) {
+        if (usernameExists) {
             document.getElementById("error").textContent = "Username already exists"
-            return; // ← stop here
+            return;
         }
 
         const player = {
             username,
-            firstname: document.getElementById("firstname").value,
-            lastname: document.getElementById("lastname").value,
+            firstname: document.getElementById("firstname").value.trim(),
+            lastname: document.getElementById("lastname").value.trim(),
             age: document.getElementById("age").value,
-            country: document.getElementById("country").value,
+            country: document.getElementById("country").value.trim(),
             ranking: document.getElementById("ranking").value.trim()
         }
 
@@ -186,16 +188,16 @@ function renderPlayerInfo() {
 
     const profile = document.getElementById("profile")
     profile.innerHTML = `
-<div class="profile">
-<h2>${player?.username || "Player not found"}</h2>
-<p><b>Name:</b> ${player?.firstname || ""} ${player?.lastname || ""}</p>
-<p><b>Age:</b> ${player?.age || "—"}</p>
-<p><b>Country:</b> ${player?.country || "—"}</p>
-<p><b>Ranking:</b> ${player?.ranking || "—"}</p>
-<br>
-<button onclick="window.location='index.html'">Back</button>
-</div>
-`
+        <div class="profile">
+            <h2>${player?.username || "Player not found"}</h2>
+            <p><b>Name:</b> ${player?.firstname || ""} ${player?.lastname || ""}</p>
+            <p><b>Age:</b> ${player?.age || "—"}</p>
+            <p><b>Country:</b> ${player?.country || "—"}</p>
+            <p><b>Ranking:</b> ${player?.ranking || "—"}</p>
+            <br>
+            <button onclick="window.location='index.html'">Back</button>
+        </div>
+    `
 }
 
 function renderSearchPlayer() {
@@ -251,4 +253,91 @@ function renderTeamStatsPage() {
     `;
 }
 
-renderTeamStatsPage();
+function editPlayer(team, username) {
+    localStorage.setItem("editTeam", team)
+    localStorage.setItem("editUsername", username)
+    window.location.href = "editplayer.html"
+}
+
+function renderEditPlayer() {
+    const username = localStorage.getItem("editUsername")
+    const editTeam = localStorage.getItem("editTeam")
+
+    if (!username || !editTeam) {
+        alert("No player selected for editing")
+        window.location.href = "index.html"
+        return
+    }
+
+    let player = null
+    let currentTeam = null
+
+    if (editTeam === "A") {
+        player = teamA.find(p => p.username === username)
+        currentTeam = "A"
+    } else {
+        player = teamB.find(p => p.username === username)
+        currentTeam = "B"
+    }
+
+    if (!player) {
+        alert("Player not found")
+        window.location.href = "index.html"
+        return
+    }
+
+    document.getElementById("username").value = player.username
+    document.getElementById("firstname").value = player.firstname || ""
+    document.getElementById("lastname").value = player.lastname || ""
+    document.getElementById("age").value = player.age || ""
+    document.getElementById("country").value = player.country || ""
+    document.getElementById("ranking").value = player.ranking || "Iron"
+
+    const teamSelect = document.getElementById("teamSelect")
+    teamSelect.innerHTML = `
+        <option value="A" ${currentTeam === "A" ? "selected" : ""}>${teamAName}</option>
+        <option value="B" ${currentTeam === "B" ? "selected" : ""}>${teamBName}</option>
+    `
+
+    document.getElementById("playerForm").addEventListener("submit", e => {
+        e.preventDefault()
+
+        const updatedPlayer = {
+            username: player.username, 
+            firstname: document.getElementById("firstname").value.trim(),
+            lastname: document.getElementById("lastname").value.trim(),
+            age: document.getElementById("age").value,
+            country: document.getElementById("country").value.trim(),
+            ranking: document.getElementById("ranking").value.trim()
+        }
+
+        const newTeam = document.getElementById("teamSelect").value
+
+        if (currentTeam === "A") {
+            teamA = teamA.filter(p => p.username !== username)
+        } else {
+            teamB = teamB.filter(p => p.username !== username)
+        }
+
+        if (newTeam === "A") {
+            teamA.push(updatedPlayer)
+        } else {
+            teamB.push(updatedPlayer)
+        }
+
+        save()
+        localStorage.removeItem("editUsername")
+        localStorage.removeItem("editTeam")
+        window.location.href = "index.html"
+    })
+}
+
+if (document.getElementById("playerForm") && window.location.pathname.includes("addplayer.html")) {
+    renderAddPlayer()
+}
+if (document.getElementById("profile")) {
+    renderPlayerInfo()
+}
+if (document.getElementById("teamAName") && document.getElementById("teamBName")) {
+    renderTeamStatsPage()
+}
