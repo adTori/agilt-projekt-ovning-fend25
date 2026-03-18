@@ -1,0 +1,24 @@
+List Name,Card Name,Description,Labels,Estimate
+Product backlog,User Story: Söka efter spelare,Sök spelare via användarnamn,Frontend;Backend,M
+Product backlog,User Story: Redigera spelarinformation,Redigera spelares info,Frontend;Backend,M
+Product backlog,User Story: Flytta spelare mellan lag,Flytta spelare mellan lag,Backend,M
+Product backlog,User Story: Sortera spelare,Sortera efter ranking ålder namn,Frontend,S
+Product backlog,User Story: Visa lagstatistik,Visa statistik för lag,Frontend;Backend,M
+Product backlog,User Story: Välja europeiskt land från dropdown,Dropdown via API,Frontend;API,M
+Product backlog,Task: Skapa och implementera design för samtliga sidor,Design av alla sidor,UX;Frontend,L
+
+Product backlog,Change Request: Lagstorlek ändras,3-7 spelare + validering,Frontend;Backend,M
+Product backlog,Change Request: Ranking-system uppdateras,Nytt ranking system 1-100,Backend;Frontend,L
+Product backlog,User Story: Visa leaderboard-sida,Leaderboard topp 10,Backend;Frontend,L
+Product backlog,User Story: Visa landsflagga Europa,Flaggor via API,Frontend;API,M
+Product backlog,User Story: Lagkapten,Hantera lagkapten,Frontend;Backend,S
+Product backlog,User Story: Auto-balansera lag,Balansera lag via ranking,Backend,L
+Product backlog,Task: Responsiv design,Responsiv layout,Frontend;UX,M
+Product backlog,Task: Form validation,Validering formulär,Frontend,S
+
+Buggar,Spelare kan läggas till med samma användarnamn,Dubbletter tillåts,Bug;Backend,S
+Buggar,Lag kan överskrida max 5 spelare,Fel i lagstorlek,Bug;Backend,S
+Buggar,Spelare tas inte bort korrekt,State uppdateras ej,Bug;Backend,M
+Buggar,Profilinformation visas fel,Fel data visas,Bug;Frontend,S
+Buggar,Ålder och ranking sparas inte,Sparas ej korrekt,Bug;Backend,M
+Buggar,Tillbaka-knappen fungerar inte korrekt,Navigering bug,Bug;Frontend,S
