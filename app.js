@@ -101,10 +101,12 @@ function renderHome() {
 
     const listA = document.getElementById("teamAList")
     const listB = document.getElementById("teamBList")
+
     listA.innerHTML = ""
     listB.innerHTML = ""
 
     teamA.forEach(p => {
+
         const li = document.createElement("li")
         li.className = "player"
         li.innerHTML = `
@@ -113,17 +115,21 @@ function renderHome() {
             <button onclick="removePlayer('A','${p.username}')">Remove</button>
         `
         listA.appendChild(li)
+
     })
 
     teamB.forEach(p => {
+
         const li = document.createElement("li")
         li.className = "player"
+
         li.innerHTML = `
             <span onclick="goToPlayer('${p.username}')">${p.username}</span>
             <button onclick="editPlayer('B','${p.username}')">Edit</button>
             <button class="removePlayer" onclick="removePlayer('B','${p.username}')">Remove</button>
         `
         listB.appendChild(li)
+
     })
 }
 
@@ -149,6 +155,9 @@ function usernameExists(username) {
 
 function renderAddPlayer() {
     const teamSelect = document.getElementById("teamSelect")
+    const form = document.getElementById("playerForm")
+
+    if (!teamSelect || !form) return
 
     teamSelect.innerHTML = `
         <option value="A" ${teamA.length >= 5 ? "disabled" : ""}>${teamAName}</option>
