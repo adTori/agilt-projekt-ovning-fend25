@@ -7,6 +7,10 @@ let teamBName = localStorage.getItem("teamBName") || "Team B"
 const searchPlayerInput = document.getElementById("searchPlayerInput")
 const searchResult = document.getElementById("searchResult")
 
+if (document.querySelector("#statsA") && document.querySelector("#statsB")) {
+    renderTeamStatsPage();
+}
+
 const rankToNumber = {
     "Iron": 1,
     "Bronze": 2,
@@ -238,28 +242,15 @@ if (searchPlayerInput) {
 }
 
 function renderTeamStatsPage() {
-    const teamANameEl = document.getElementById("teamAName");
-    const teamBNameEl = document.getElementById("teamBName");
+    const statsA = document.getElementById("statsA");
+    const statsB = document.getElementById("statsB");
 
-    if (!teamANameEl || !teamBNameEl) return;
+    if (!statsA || !statsB) {
+        return;
+    }
 
-    teamANameEl.textContent = teamAName || "Team A";
-    teamBNameEl.textContent = teamBName || "Team B";
-
-    const summaryA = getTeamSummary(teamA);
-    const summaryB = getTeamSummary(teamB);
-
-    document.getElementById("statsA").innerHTML = `
-        <p><b>Players:</b> ${summaryA.count}</p>
-        <p><b>Average age:</b> ${summaryA.avgAge}</p>
-        <p><b>Average rank:</b> ${summaryA.avgRankName}</p>
-    `;
-
-    document.getElementById("statsB").innerHTML = `
-        <p><b>Players:</b> ${summaryB.count}</p>
-        <p><b>Average age:</b> ${summaryB.avgAge}</p>
-        <p><b>Average rank:</b> ${summaryB.avgRankName}</p>
-    `;
+    statsA.innerHTML = `…`;
+    statsB.innerHTML = `…`;
 }
 
 function editPlayer(team, username) {
