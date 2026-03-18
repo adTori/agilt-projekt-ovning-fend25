@@ -172,7 +172,7 @@ function renderAddPlayer() {
         e.preventDefault()
         const username = document.getElementById("username").value.trim()
 
-        if (usernameExists) {
+        if (usernameExists(username)) {
             document.getElementById("error").textContent = "Username already exists"
             return;
         }
