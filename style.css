@@ -1,40 +1,209 @@
-body {
-    font-family: Arial;
-    background: #f4f4f4;
-    padding: 30px;
+/* RESET */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-nav a {
-    margin-right: 15px;
+/* BODY */
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg,#43537a,#212d63);
+    color:white;
+    padding:30px;
+    min-height:100vh;
+    max-width:1000px;
+    margin:auto;
 }
 
-.teams {
-    display: flex;
-    gap: 40px;
-    margin-top: 20px;
+/* NAVIGATION */
+nav{
+    margin-bottom:25px;
+    text-align:center;
 }
 
-.team {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 250px;
+nav a{
+    text-decoration:none;
+    margin:0 10px;
+    color:white;
+    background:#1e293b;
+    padding:8px 14px;
+    border-radius:8px;
+    font-weight:bold;
+    transition:0.2s;
 }
 
-.player {
-    display: flex;
-    justify-content: space-between;
-    margin: 6px 0;
+nav a:hover{
+    background:#6366f1;
 }
 
-.player span {
-    cursor: pointer;
-    color: blue;
+/* TITLES */
+h1{
+    margin:55px;
+    text-align:center;
 }
 
-.profile {
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    width: 300px;
+/* RENAME TEAM AREA */
+.rename{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.rename input{
+    padding:8px;
+    border:none;
+    border-radius:6px;
+    margin:5px;
+}
+
+.rename button{
+    padding:8px 12px;
+    border:none;
+    border-radius:6px;
+    background:#6366f1;
+    color:white;
+    cursor:pointer;
+}
+
+.rename button:hover{
+    background:#4f46e5;
+}
+
+/* TEAMS CONTAINER */
+.teams{
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    margin-top:20px;
+    flex-wrap:wrap;
+}
+
+/* TEAM CARD */
+.team{
+    background:#020617;
+    padding:20px;
+    border-radius:12px;
+    width:250px;
+    box-shadow:0 0 15px rgba(0,0,0,0.6);
+}
+
+#teamAName {
+    margin-bottom:15px;
+    color:#51b6a2;
+    text-align:center;
+}
+
+#teamBName {
+    margin-bottom:15px;
+    color:#e166ea;
+    text-align:center;
+}
+
+/* PLAYER LIST */
+.player{
+    display:flex;
+    justify-content:space-between;
+    margin:6px 0;
+    background:#1e293b;
+    padding:6px 8px;
+    border-radius:6px;
+}
+
+/* PLAYER ACTION */
+.player span{
+    cursor:pointer;
+    color:#60a5fa;
+    font-weight:bold;
+}
+
+.player span:hover{
+    color:#818cf8;
+}
+
+/* PROFILE CARD */
+.profile{
+    background:#020617;
+    padding:30px;
+    border-radius:12px;
+    width:300px;
+    margin:auto;
+    box-shadow:0 0 15px rgba(0,0,0,0.6);
+}
+
+/* FORM STYLE */
+form{
+    background:#020617;
+    padding:25px;
+    border-radius:12px;
+    width:320px;
+    margin:auto;
+    box-shadow:0 0 15px rgba(0,0,0,0.6);
+}
+
+form input,
+form select{
+    width:100%;
+    padding:8px;
+    margin-bottom:10px;
+    border:none;
+    border-radius:6px;
+}
+
+form button{
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:6px;
+    background:#6366f1;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+form button:hover{
+    background:#4f46e5;
+}
+
+/* ERROR TEXT */
+#error{
+    margin-top:10px;
+    text-align:center;
+    color:#f87171;
+}
+
+/* RANK COLORS */
+
+.rank-bronze{
+    border:3px solid #cd7f32;
+    box-shadow:0 0 15px #cd7f32;
+}
+
+.rank-silver{
+    border:3px solid #c0c0c0;
+    box-shadow:0 0 15px #c0c0c0;
+}
+
+.rank-gold{
+    border:3px solid #ffd700;
+    box-shadow:0 0 15px #ffd700;
+}
+
+.rank-platinum{
+    border:3px solid #67e8f9;
+    box-shadow:0 0 15px #67e8f9;
+}
+
+.rank-diamond{
+    border:3px solid #7dd3fc;
+    box-shadow:0 0 20px #38bdf8;
+}
+
+.rank-immortal{
+    border:3px solid #a855f7;
+    box-shadow:0 0 20px #9333ea;
+}
+
+.rank-radiant{
+    border:3px solid #f43f5e;
+    box-shadow:0 0 25px #f43f5e;
 }

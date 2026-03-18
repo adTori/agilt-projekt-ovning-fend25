@@ -1,0 +1,88 @@
+{
+  "change_requests": [
+    {
+      "title": "Lagstorlek ändras",
+      "description": "Lag ska nu kunna ha mellan 3 och 7 spelare istället för max 5.",
+      "acceptance_criteria": [
+        "Minst 3 spelare krävs per lag, annars visas tydligt fel på startsidan",
+        "Max 7 spelare per lag",
+        "UI visar antal spelare i laget"
+      ]
+    },
+    {
+      "title": "Ranking-system uppdateras",
+      "description": "Ranking ska vara nivå mellan 1–100 och en rank tilldelas baserat på nivå.",
+      "ranking_levels": {
+        "0-19": "Iron",
+        "20-39": "Bronze",
+        "40-59": "Silver",
+        "60-79": "Gold",
+        "80-100": "Diamond"
+      },
+      "acceptance_criteria": [
+        "Input valideras",
+        "UI visar skala 1–100",
+        "Startsidan visar endast rank",
+        "Profilsidan visar både nivå och rank"
+      ]
+    }
+  ],
+  "user_stories": [
+    {
+      "title": "Visa leaderboard-sida",
+      "description": "Användare kan registrera lag och se historiskt starkaste lag.",
+      "acceptance_criteria": [
+        "Lägga till lag med namn och genomsnittlig nivå",
+        "Sorteras efter genomsnittlig ranking",
+        "Endast topp 10 lag visas",
+        "Lag utanför topp 10 läggs inte till"
+      ]
+    },
+    {
+      "title": "Visa landsflagga (Europa)",
+      "description": "Visa flagga baserat på valt europeiskt land.",
+      "acceptance_criteria": [
+        "Flagga visas i spelarlistan",
+        "Flagga visas i profil",
+        "Dropdown med europeiska länder vid skapande av spelare",
+        "Använder API: https://restcountries.com/"
+      ]
+    },
+    {
+      "title": "Lagkapten",
+      "description": "Möjlighet att markera en spelare som lagkapten.",
+      "acceptance_criteria": [
+        "Varje lag måste ha exakt 1 kapten",
+        "Kapten markeras visuellt",
+        "Kapten kan ändras"
+      ]
+    },
+    {
+      "title": "Auto-balansera lag",
+      "description": "Automatisk balansering av lag baserat på ranking.",
+      "acceptance_criteria": [
+        "Baserat på ranking",
+        "Båda lag får ungefär samma snittranking"
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Responsiv design",
+      "description": "Applikationen ska fungera på mobil, tablet och desktop.",
+      "acceptance_criteria": [
+        "Inga element går utanför skärmen",
+        "Menyer fungerar på mobil"
+      ]
+    },
+    {
+      "title": "Form validation",
+      "description": "Validering vid skapande av spelare.",
+      "acceptance_criteria": [
+        "Användarnamn minst 3 tecken",
+        "Ålder mellan 13–50",
+        "Ranking måste anges"
+      ]
+    }
+  ]
+}

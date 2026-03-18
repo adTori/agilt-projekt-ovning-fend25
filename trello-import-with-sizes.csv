@@ -1,0 +1,11 @@
+List Name,Card Name,Description,Labels,Estimate
+
+
+Product backlog,Change Request: Lagstorlek ändras,3-7 spelare + validering,Frontend;Backend,M
+Product backlog,Change Request: Ranking-system uppdateras,Nytt ranking system 1-100,Backend;Frontend,L
+Product backlog,User Story: Visa leaderboard-sida,Leaderboard topp 10,Backend;Frontend,L
+Product backlog,User Story: Visa landsflagga Europa,Flaggor via API,Frontend;API,M
+Product backlog,User Story: Lagkapten,Hantera lagkapten,Frontend;Backend,S
+Product backlog,User Story: Auto-balansera lag,Balansera lag via ranking,Backend,L
+Product backlog,Task: Responsiv design,Responsiv layout,Frontend;UX,M
+Product backlog,Task: Form validation,Validering formulär,Frontend,S
