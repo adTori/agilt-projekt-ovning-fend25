@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Player</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="addplayer.html">Add Player</a>
+        <a href="searchplayer.html">Search Player</a>
+    </nav>
+
+    <h1>Edit Player</h1>
+
+    <form id="playerForm">
+        <label>Username (cannot be changed):</label>
+        <input type="text" id="username" readonly>
+
+        <label>First name:</label>
+        <input type="text" id="firstname" required>
+
+        <label>Last name:</label>
+        <input type="text" id="lastname" required>
+
+        <label>Age:</label>
+        <input type="number" id="age" min="1" required>
+
+        <label>Country:</label>
+        <input type="text" id="country" required>
+
+        <label>Ranking:</label>
+        <select id="ranking" required>
+            <option value="Iron">Iron</option>
+            <option value="Bronze">Bronze</option>
+            <option value="Silver">Silver</option>
+            <option value="Gold">Gold</option>
+            <option value="Diamond">Diamond</option>
+        </select>
+
+        <label>Team:</label>
+        <select id="teamSelect" required></select>
+
+        <div id="error" style="color:red; margin: 10px 0;"></div>
+
+        <button type="submit">Save Changes</button>
+        <button type="button" onclick="window.location='index.html'">Cancel</button>
+    </form>
+
+    <script src="app.js"></script>
+    <script>
+        renderEditPlayer()
+    </script>
+
+</body>
+</html>
