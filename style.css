@@ -82,6 +82,7 @@ h1{
 }
 
 .rename button{
+    font-weight: bold;
     padding:8px 12px;
     border:none;
     border-radius:6px;
