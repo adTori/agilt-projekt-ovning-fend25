@@ -70,19 +70,28 @@ h1{
 
 /* RENAME TEAM AREA */
 .rename{
-    text-align:center;
-    margin-bottom:25px;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:40px; /* 👈 samma som .teams */
+    margin-bottom:40px;
+}
+
+/* gruppera varje team */
+.rename-group{
+    display:flex;
+    gap:10px;
+    align-items:center;
 }
 
 .rename input{
     padding:8px;
     border:none;
     border-radius:6px;
-    margin:5px;
 }
 
 .rename button{
-    font-weight: bold;
+    font-weight:bold;
     padding:8px 12px;
     border:none;
     border-radius:6px;
@@ -100,8 +109,8 @@ h1{
     display:flex;
     justify-content:center;
     gap:40px;
-    margin-top:20px;
     flex-wrap:wrap;
+    padding-top:10px; /* 👈 fixar att det inte känns för tight */
 }
 
 /* TEAM CARD */
