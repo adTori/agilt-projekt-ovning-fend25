@@ -319,6 +319,16 @@ function renderEditPlayer() {
     document.getElementById("playerForm").addEventListener("submit", e => {
         e.preventDefault()
 
+        const form = document.getElementById("playerForm")
+        const error = document.getElementById("error")
+
+        error.textContent = ""
+
+        if (!form.checkValidity()) {
+            form.reportValidity()
+            return
+        }
+
         const updatedPlayer = {
             username: player.username, 
             firstname: document.getElementById("firstname").value.trim(),
