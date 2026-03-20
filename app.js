@@ -207,12 +207,13 @@ function renderPlayerInfo() {
     profile.innerHTML = `
         <div class="profile">
             <h2>${player?.username || "Player not found"}</h2>
+            <br>
             <p><b>Name:</b> ${player?.firstname || ""} ${player?.lastname || ""}</p>
             <p><b>Age:</b> ${player?.age || "—"}</p>
             <p><b>Country:</b> ${player?.country || "—"}</p>
             <p><b>Ranking:</b> ${player?.ranking || "—"}</p>
             <br>
-            <button onclick="window.location='index.html'">Back</button>
+            <button class="btn" onclick="window.location='index.html'">Back</button>
         </div>
     `
 }
