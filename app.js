@@ -80,16 +80,23 @@ function save() {
 }
 
 function renameTeam(team) {
+    let inputId = team === "A" ? "teamAInput" : "teamBInput";
+    const input = document.getElementById(inputId);
+    const val = input.value.trim();
+
+    if (val.length < 3) {
+        alert("Namnet måste vara minst 3 tecken");
+        return;
+    }
+
     if (team === "A") {
-        const val = document.getElementById("teamAInput").value
-        if (val) teamAName = val
+        teamAName = val;
+    } else {
+        teamBName = val;
     }
-    if (team === "B") {
-        const val = document.getElementById("teamBInput").value
-        if (val) teamBName = val
-    }
-    save()
-    renderHome()
+
+    save();
+    renderHome();
 }
 
 function renderHome() {
@@ -175,6 +182,11 @@ function renderAddPlayer() {
     document.getElementById("playerForm").addEventListener("submit", e => {
         e.preventDefault()
         const username = document.getElementById("username").value.trim()
+
+        if (username.length < 3) {
+            document.getElementById("error").textContent = "Username must be at least 3 characters"
+            return;
+        }
 
         if (usernameExists(username)) {
             document.getElementById("error").textContent = "Username already exists"
