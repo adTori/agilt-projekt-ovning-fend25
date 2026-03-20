@@ -13,25 +13,33 @@
         <a href="searchplayer.html">Search Player</a>
     </nav>
     <h1>Add Player</h1>
-    <form id="playerForm">
-        <input id="username" placeholder="Username" required>
-        <input id="firstname" placeholder="First name" required>
-        <input id="lastname" placeholder="Last name" required>
-        <input id="age" type="number" placeholder="Age" required>
-        <input id="country" placeholder="Country" required>
-        <select id="ranking">
-            <option>Iron</option>
-            <option>Bronze</option>
-            <option>Silver</option>
-            <option>Gold</option>
-            <option>Diamond</option>
-        </select>
-        <br><br>
-        <select id="teamSelect"></select>
-        <br><br>
-        <button>Add Player</button>
-    </form>
-    <p id="error"></p>
+<form id="playerForm">
+    <!-- Minst 3 tecken -->
+    <input id="username" placeholder="Username" required minlength="3">
+
+    <input id="firstname" placeholder="First name" required>
+    <input id="lastname" placeholder="Last name" required>
+
+    <!-- Ålder mellan 13 och 50 -->
+    <input id="age" type="number" placeholder="Age" required min="13" max="50">
+
+    <input id="country" placeholder="Country" required>
+<br><br>
+    <!-- Måste välja ranking -->
+    <select id="ranking" required>
+        <option value="">Select Rank</option> <!-- viktigt -->
+        <option>Iron</option>
+        <option>Bronze</option>
+        <option>Silver</option>
+        <option>Gold</option>
+        <option>Diamond</option>
+    </select>
+
+    <select id="teamSelect"></select>
+    <br><br>
+
+    <button>Add Player</button>
+</form>    <p id="error"></p>
     
 </body>
 
