@@ -43,6 +43,31 @@ h1{
     text-align:center;
 }
 
+.btn{
+    padding:6px 10px;
+    border:none;
+    border-radius:6px;
+    background:#6366f1;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.2s;
+    margin-left:5px;
+}
+
+.btn:hover{
+    background:#4f46e5;
+}
+
+/* Optional: red delete button */
+.btn-danger{
+    background:#f43f5e;
+}
+
+.btn-danger:hover{
+    background:#dc2626;
+}
+
 /* RENAME TEAM AREA */
 .rename{
     text-align:center;
@@ -103,6 +128,7 @@ h1{
 .player{
     display:flex;
     justify-content:space-between;
+    align-items: center;
     margin:6px 0;
     background:#1e293b;
     padding:6px 8px;
@@ -130,7 +156,7 @@ h1{
     box-shadow:0 0 15px rgba(0,0,0,0.6);
 }
 
-/* FORM STYLE */
+/* FORM STYLE (used by Add Player AND Search now) */
 form{
     background:#020617;
     padding:25px;
@@ -206,4 +232,48 @@ form button:hover{
 .rank-radiant{
     border:3px solid #f43f5e;
     box-shadow:0 0 25px #f43f5e;
+}
+
+/* SEARCH (NOW MATCHES FORM LAYOUT) */
+
+#search{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+/* Input now behaves like other form inputs */
+#searchPlayerInput{
+    width:100%;
+    padding:8px;
+    border:none;
+    border-radius:6px;
+}
+
+/* Button same style as form button */
+.searchBtn{
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:6px;
+    background:#6366f1;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.searchBtn:hover{
+    background:#4f46e5;
+}
+
+/* Search result styled like UI */
+#searchResult{
+    width:100%;
+    margin-top:10px;
+    padding:10px;
+    border-radius:6px;
+    background:#1e293b;
+    text-align:center;
+    box-shadow:0 0 10px rgba(0,0,0,0.5);
 }

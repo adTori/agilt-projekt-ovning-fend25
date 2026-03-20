@@ -115,8 +115,10 @@ function renderHome() {
         li.className = "player"
         li.innerHTML = `
             <span onclick="goToPlayer('${p.username}')">${p.username}</span>
-            <button onclick="editPlayer('A','${p.username}')">Edit</button>
-            <button onclick="removePlayer('A','${p.username}')">Remove</button>
+            <div>
+            <button class="btn" onclick="editPlayer('A','${p.username}')">Edit</button>
+            <button class="btn btn-danger" onclick="removePlayer('A','${p.username}')"> 🗑️ </button>
+            </div>
         `
         listA.appendChild(li)
 
@@ -129,8 +131,10 @@ function renderHome() {
 
         li.innerHTML = `
             <span onclick="goToPlayer('${p.username}')">${p.username}</span>
-            <button onclick="editPlayer('B','${p.username}')">Edit</button>
-            <button class="removePlayer" onclick="removePlayer('B','${p.username}')">Remove</button>
+            <div>
+            <button class="btn" onclick="editPlayer('B','${p.username}')">Edit</button>
+            <button class="btn btn-danger" onclick="removePlayer('B','${p.username}')"> 🗑️ </button>
+            </div>
         `
         listB.appendChild(li)
 
