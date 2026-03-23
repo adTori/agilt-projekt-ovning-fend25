@@ -119,7 +119,8 @@ function renderHome() {
     teamA.forEach(p => {
 
         const li = document.createElement("li")
-        li.className = "player"
+        li.className = `player ${getRankClass(p.ranking)}`
+
         li.innerHTML = `
             <span onclick="goToPlayer('${p.username}')">${p.username}</span>
             <div>
@@ -134,7 +135,7 @@ function renderHome() {
     teamB.forEach(p => {
 
         const li = document.createElement("li")
-        li.className = "player"
+        li.className = `player ${getRankClass(p.ranking)}`
 
         li.innerHTML = `
             <span onclick="goToPlayer('${p.username}')">${p.username}</span>
@@ -216,8 +217,10 @@ function renderPlayerInfo() {
     const player = [...teamA, ...teamB].find(p => p.username === username)
 
     const profile = document.getElementById("profile")
+        const rankClass = getRankClass(player?.ranking);
+
     profile.innerHTML = `
-        <div class="profile">
+        <div class="profile ${rankClass}">
             <h2>${player?.username || "Player not found"}</h2>
             <br>
             <p><b>Name:</b> ${player?.firstname || ""} ${player?.lastname || ""}</p>
@@ -367,4 +370,17 @@ if (document.getElementById("profile")) {
 }
 if (document.getElementById("teamAName") && document.getElementById("teamBName")) {
     renderTeamStatsPage()
+}
+
+function getRankClass(rank) {
+    if (!rank) return "";
+
+    const rankLow = rank.toLowerCase();
+
+    if (rankLow.includes('iron'))  return  "rank-iron";
+    if (rankLow.includes("bronze")) return "rank-bronze";
+    if (rankLow.includes("silver")) return "rank-silver";
+    if (rankLow.includes("gold")) return "rank-gold";
+    if (rankLow.includes("diamond")) return "rank-diamond";
+    return "";
 }
