@@ -119,13 +119,15 @@ function renderHome() {
     teamA.forEach(p => {
 
         const li = document.createElement("li")
-        li.className = `player ${getRankClass(p.ranking)}`
+        li.className = `player ${getRankClass(p.ranking)} ${p.isCaptain ? "captain" : ""}`
 
         li.innerHTML = `
-            <span onclick="goToPlayer('${p.username}')">${p.username}</span>
+            <span onclick="goToPlayer('${p.username}')">
+                ${p.username} ${p.isCaptain ? "👑" : ""}
+            </span>
             <div>
-            <button class="btn" onclick="editPlayer('A','${p.username}')">Edit</button>
-            <button class="btn btn-danger" onclick="removePlayer('A','${p.username}')"> 🗑️ </button>
+                <button class="btn" onclick="editPlayer('A','${p.username}')">Edit</button>
+                <button class="btn btn-danger" onclick="removePlayer('A','${p.username}')"> 🗑️ </button>
             </div>
         `
         listA.appendChild(li)
@@ -135,13 +137,15 @@ function renderHome() {
     teamB.forEach(p => {
 
         const li = document.createElement("li")
-        li.className = `player ${getRankClass(p.ranking)}`
+        li.className = `player ${getRankClass(p.ranking)} ${p.isCaptain ? "captain" : ""}`
 
         li.innerHTML = `
-            <span onclick="goToPlayer('${p.username}')">${p.username}</span>
+            <span onclick="goToPlayer('${p.username}')">
+                ${p.username} ${p.isCaptain ? "👑" : ""}
+            </span>
             <div>
-            <button class="btn" onclick="editPlayer('B','${p.username}')">Edit</button>
-            <button class="btn btn-danger" onclick="removePlayer('B','${p.username}')"> 🗑️ </button>
+                <button class="btn" onclick="editPlayer('B','${p.username}')">Edit</button>
+                <button class="btn btn-danger" onclick="removePlayer('B','${p.username}')"> 🗑️ </button>
             </div>
         `
         listB.appendChild(li)
@@ -200,7 +204,8 @@ function renderAddPlayer() {
             lastname: document.getElementById("lastname").value.trim(),
             age: document.getElementById("age").value,
             country: document.getElementById("country").value.trim(),
-            ranking: document.getElementById("ranking").value.trim()
+            ranking: document.getElementById("ranking").value.trim(),
+            isCaptain: false
         }
 
         const team = document.getElementById("teamSelect").value
@@ -312,6 +317,7 @@ function renderEditPlayer() {
     document.getElementById("age").value = player.age || ""
     document.getElementById("country").value = player.country || ""
     document.getElementById("ranking").value = player.ranking || "Iron"
+    document.getElementById("isCaptain").checked = player.isCaptain || false
 
     const teamSelect = document.getElementById("teamSelect")
     teamSelect.innerHTML = `
@@ -338,10 +344,16 @@ function renderEditPlayer() {
             lastname: document.getElementById("lastname").value.trim(),
             age: document.getElementById("age").value,
             country: document.getElementById("country").value.trim(),
-            ranking: document.getElementById("ranking").value.trim()
+            ranking: document.getElementById("ranking").value.trim(),
+            isCaptain: document.getElementById("isCaptain").checked
         }
 
         const newTeam = document.getElementById("teamSelect").value
+
+        if (document.getElementById("isCaptain").checked) {
+            const teamArr = newTeam === "A" ? teamA : teamB;
+            teamArr.forEach(p => p.isCaptain = false);
+        }
 
         if (currentTeam === "A") {
             teamA = teamA.filter(p => p.username !== username)
@@ -383,4 +395,15 @@ function getRankClass(rank) {
     if (rankLow.includes("gold")) return "rank-gold";
     if (rankLow.includes("diamond")) return "rank-diamond";
     return "";
+}
+
+function setCaptain(team, username) {
+    const teamArr = team === "A" ? teamA : teamB;
+
+    teamArr.forEach(p => {
+        p.isCaptain = (p.username === username);
+    });
+
+    save();
+    renderHome();
 }

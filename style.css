@@ -271,6 +271,13 @@ form button:hover{
     box-shadow:0 0 10px rgba(0,0,0,0.5);
 }
 
+#isCaptain {
+    width: auto;
+    margin-right: 8px;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
 /* GLOBAL INPUT/BUTTON IMPROVEMENT */
 input, button{
     font-size:16px;
