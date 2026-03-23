@@ -211,39 +211,24 @@ form button:hover{
 }
 
 /* RANK COLORS */
+.rank-iron{
+    border:3px solid #55493d;
+}
+
 .rank-bronze{
-    border:3px solid #cd7f32;
-    box-shadow:0 0 15px #cd7f32;
+    border:3px solid #693501;
 }
 
 .rank-silver{
-    border:3px solid #c0c0c0;
-    box-shadow:0 0 15px #c0c0c0;
+    border:3px solid #cbcbcb;
 }
 
 .rank-gold{
     border:3px solid #ffd700;
-    box-shadow:0 0 15px #ffd700;
-}
-
-.rank-platinum{
-    border:3px solid #67e8f9;
-    box-shadow:0 0 15px #67e8f9;
 }
 
 .rank-diamond{
     border:3px solid #7dd3fc;
-    box-shadow:0 0 20px #38bdf8;
-}
-
-.rank-immortal{
-    border:3px solid #a855f7;
-    box-shadow:0 0 20px #9333ea;
-}
-
-.rank-radiant{
-    border:3px solid #f43f5e;
-    box-shadow:0 0 25px #f43f5e;
 }
 
 /* SEARCH */
