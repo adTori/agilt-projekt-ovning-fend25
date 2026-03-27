@@ -80,16 +80,23 @@ function save() {
 }
 
 function renameTeam(team) {
+    let inputId = team === "A" ? "teamAInput" : "teamBInput";
+    const input = document.getElementById(inputId);
+    const val = input.value.trim();
+
+    if (val.length < 3) {
+        alert("Namnet måste vara minst 3 tecken");
+        return;
+    }
+
     if (team === "A") {
-        const val = document.getElementById("teamAInput").value
-        if (val) teamAName = val
+        teamAName = val;
+    } else {
+        teamBName = val;
     }
-    if (team === "B") {
-        const val = document.getElementById("teamBInput").value
-        if (val) teamBName = val
-    }
-    save()
-    renderHome()
+
+    save();
+    renderHome();
 }
 
 function renderHome() {
@@ -112,11 +119,16 @@ function renderHome() {
     teamA.forEach(p => {
 
         const li = document.createElement("li")
-        li.className = "player"
+        li.className = `player ${getRankClass(p.ranking)} ${p.isCaptain ? "captain" : ""}`
+
         li.innerHTML = `
-            <span onclick="goToPlayer('${p.username}')">${p.username}</span>
-            <button onclick="editPlayer('A','${p.username}')">Edit</button>
-            <button onclick="removePlayer('A','${p.username}')">Remove</button>
+            <span onclick="goToPlayer('${p.username}')">
+                ${p.username} ${p.isCaptain ? "👑" : ""}
+            </span>
+            <div>
+                <button class="btn" onclick="editPlayer('A','${p.username}')">Edit</button>
+                <button class="btn btn-danger" onclick="removePlayer('A','${p.username}')"> 🗑️ </button>
+            </div>
         `
         listA.appendChild(li)
 
@@ -125,12 +137,16 @@ function renderHome() {
     teamB.forEach(p => {
 
         const li = document.createElement("li")
-        li.className = "player"
+        li.className = `player ${getRankClass(p.ranking)} ${p.isCaptain ? "captain" : ""}`
 
         li.innerHTML = `
-            <span onclick="goToPlayer('${p.username}')">${p.username}</span>
-            <button onclick="editPlayer('B','${p.username}')">Edit</button>
-            <button class="removePlayer" onclick="removePlayer('B','${p.username}')">Remove</button>
+            <span onclick="goToPlayer('${p.username}')">
+                ${p.username} ${p.isCaptain ? "👑" : ""}
+            </span>
+            <div>
+                <button class="btn" onclick="editPlayer('B','${p.username}')">Edit</button>
+                <button class="btn btn-danger" onclick="removePlayer('B','${p.username}')"> 🗑️ </button>
+            </div>
         `
         listB.appendChild(li)
 
@@ -172,6 +188,11 @@ function renderAddPlayer() {
         e.preventDefault()
         const username = document.getElementById("username").value.trim()
 
+        if (username.length < 3) {
+            document.getElementById("error").textContent = "Username must be at least 3 characters"
+            return;
+        }
+
         if (usernameExists(username)) {
             document.getElementById("error").textContent = "Username already exists"
             return;
@@ -183,7 +204,8 @@ function renderAddPlayer() {
             lastname: document.getElementById("lastname").value.trim(),
             age: document.getElementById("age").value,
             country: document.getElementById("country").value.trim(),
-            ranking: document.getElementById("ranking").value.trim()
+            ranking: document.getElementById("ranking").value.trim(),
+            isCaptain: false
         }
 
         const team = document.getElementById("teamSelect").value
@@ -200,15 +222,18 @@ function renderPlayerInfo() {
     const player = [...teamA, ...teamB].find(p => p.username === username)
 
     const profile = document.getElementById("profile")
+        const rankClass = getRankClass(player?.ranking);
+
     profile.innerHTML = `
-        <div class="profile">
+        <div class="profile ${rankClass}">
             <h2>${player?.username || "Player not found"}</h2>
+            <br>
             <p><b>Name:</b> ${player?.firstname || ""} ${player?.lastname || ""}</p>
             <p><b>Age:</b> ${player?.age || "—"}</p>
             <p><b>Country:</b> ${player?.country || "—"}</p>
             <p><b>Ranking:</b> ${player?.ranking || "—"}</p>
             <br>
-            <button onclick="window.location='index.html'">Back</button>
+            <button class="btn" onclick="window.location='index.html'">Back</button>
         </div>
     `
 }
@@ -292,6 +317,7 @@ function renderEditPlayer() {
     document.getElementById("age").value = player.age || ""
     document.getElementById("country").value = player.country || ""
     document.getElementById("ranking").value = player.ranking || "Iron"
+    document.getElementById("isCaptain").checked = player.isCaptain || false
 
     const teamSelect = document.getElementById("teamSelect")
     teamSelect.innerHTML = `
@@ -302,16 +328,32 @@ function renderEditPlayer() {
     document.getElementById("playerForm").addEventListener("submit", e => {
         e.preventDefault()
 
+        const form = document.getElementById("playerForm")
+        const error = document.getElementById("error")
+
+        error.textContent = ""
+
+        if (!form.checkValidity()) {
+            form.reportValidity()
+            return
+        }
+
         const updatedPlayer = {
             username: player.username, 
             firstname: document.getElementById("firstname").value.trim(),
             lastname: document.getElementById("lastname").value.trim(),
             age: document.getElementById("age").value,
             country: document.getElementById("country").value.trim(),
-            ranking: document.getElementById("ranking").value.trim()
+            ranking: document.getElementById("ranking").value.trim(),
+            isCaptain: document.getElementById("isCaptain").checked
         }
 
         const newTeam = document.getElementById("teamSelect").value
+
+        if (document.getElementById("isCaptain").checked) {
+            const teamArr = newTeam === "A" ? teamA : teamB;
+            teamArr.forEach(p => p.isCaptain = false);
+        }
 
         if (currentTeam === "A") {
             teamA = teamA.filter(p => p.username !== username)
@@ -340,4 +382,28 @@ if (document.getElementById("profile")) {
 }
 if (document.getElementById("teamAName") && document.getElementById("teamBName")) {
     renderTeamStatsPage()
+}
+
+function getRankClass(rank) {
+    if (!rank) return "";
+
+    const rankLow = rank.toLowerCase();
+
+    if (rankLow.includes('iron'))  return  "rank-iron";
+    if (rankLow.includes("bronze")) return "rank-bronze";
+    if (rankLow.includes("silver")) return "rank-silver";
+    if (rankLow.includes("gold")) return "rank-gold";
+    if (rankLow.includes("diamond")) return "rank-diamond";
+    return "";
+}
+
+function setCaptain(team, username) {
+    const teamArr = team === "A" ? teamA : teamB;
+
+    teamArr.forEach(p => {
+        p.isCaptain = (p.username === username);
+    });
+
+    save();
+    renderHome();
 }

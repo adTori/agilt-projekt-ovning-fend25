@@ -10,7 +10,7 @@ body{
     font-family: Arial, Helvetica, sans-serif;
     background: linear-gradient(135deg,#43537a,#212d63);
     color:white;
-    padding:30px;
+    padding:20px;
     min-height:100vh;
     max-width:1000px;
     margin:auto;
@@ -39,24 +39,59 @@ nav a:hover{
 
 /* TITLES */
 h1{
-    margin:55px;
+    margin:50px 0;
     text-align:center;
+}
+
+/* BUTTONS */
+.btn{
+    padding:6px 10px;
+    border:none;
+    border-radius:6px;
+    background:#6366f1;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.2s;
+    margin-left:5px;
+}
+
+.btn:hover{
+    background:#4f46e5;
+}
+
+.btn-danger{
+    background:#f43f5e;
+}
+
+.btn-danger:hover{
+    background:#dc2626;
 }
 
 /* RENAME TEAM AREA */
 .rename{
-    text-align:center;
-    margin-bottom:25px;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:40px; /* 👈 samma som .teams */
+    margin-bottom:40px;
+}
+
+/* gruppera varje team */
+.rename-group{
+    display:flex;
+    gap:10px;
+    align-items:center;
 }
 
 .rename input{
     padding:8px;
     border:none;
     border-radius:6px;
-    margin:5px;
 }
 
 .rename button{
+    font-weight:bold;
     padding:8px 12px;
     border:none;
     border-radius:6px;
@@ -74,8 +109,8 @@ h1{
     display:flex;
     justify-content:center;
     gap:40px;
-    margin-top:20px;
     flex-wrap:wrap;
+    padding-top:10px; /* 👈 fixar att det inte känns för tight */
 }
 
 /* TEAM CARD */
@@ -83,7 +118,8 @@ h1{
     background:#020617;
     padding:20px;
     border-radius:12px;
-    width:250px;
+    width:100%;
+    max-width:350px;
     box-shadow:0 0 15px rgba(0,0,0,0.6);
 }
 
@@ -103,6 +139,7 @@ h1{
 .player{
     display:flex;
     justify-content:space-between;
+    align-items: center;
     margin:6px 0;
     background:#1e293b;
     padding:6px 8px;
@@ -125,17 +162,19 @@ h1{
     background:#020617;
     padding:30px;
     border-radius:12px;
-    width:300px;
+    width:100%;
+    max-width:300px;
     margin:auto;
     box-shadow:0 0 15px rgba(0,0,0,0.6);
 }
 
-/* FORM STYLE */
+/* FORM */
 form{
     background:#020617;
     padding:25px;
     border-radius:12px;
-    width:320px;
+    width:100%;
+    max-width:320px;
     margin:auto;
     box-shadow:0 0 15px rgba(0,0,0,0.6);
 }
@@ -172,38 +211,143 @@ form button:hover{
 }
 
 /* RANK COLORS */
+.rank-iron{
+    border:3px solid #55493d;
+}
 
 .rank-bronze{
-    border:3px solid #cd7f32;
-    box-shadow:0 0 15px #cd7f32;
+    border:3px solid #693501;
 }
 
 .rank-silver{
-    border:3px solid #c0c0c0;
-    box-shadow:0 0 15px #c0c0c0;
+    border:3px solid #cbcbcb;
 }
 
 .rank-gold{
     border:3px solid #ffd700;
-    box-shadow:0 0 15px #ffd700;
-}
-
-.rank-platinum{
-    border:3px solid #67e8f9;
-    box-shadow:0 0 15px #67e8f9;
 }
 
 .rank-diamond{
     border:3px solid #7dd3fc;
-    box-shadow:0 0 20px #38bdf8;
 }
 
-.rank-immortal{
-    border:3px solid #a855f7;
-    box-shadow:0 0 20px #9333ea;
+/* SEARCH */
+#search{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
 }
 
-.rank-radiant{
-    border:3px solid #f43f5e;
-    box-shadow:0 0 25px #f43f5e;
+#searchPlayerInput{
+    width:100%;
+    padding:8px;
+    border:none;
+    border-radius:6px;
+}
+
+.searchBtn{
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:6px;
+    background:#6366f1;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.searchBtn:hover{
+    background:#4f46e5;
+}
+
+#searchResult{
+    width:100%;
+    margin-top:10px;
+    padding:10px;
+    border-radius:6px;
+    background:#1e293b;
+    text-align:center;
+    box-shadow:0 0 10px rgba(0,0,0,0.5);
+}
+
+#isCaptain {
+    width: auto;
+    margin-right: 8px;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+/* GLOBAL INPUT/BUTTON IMPROVEMENT */
+input, button{
+    font-size:16px;
+}
+
+/* ========================= */
+/* RESPONSIVE DESIGN */
+/* ========================= */
+
+/* TABLET */
+@media (max-width: 768px){
+
+    body{
+        padding:15px;
+    }
+
+    nav a{
+        display:inline-block;
+        margin:5px;
+        padding:8px 10px;
+    }
+
+    .teams{
+        gap:20px;
+    }
+
+    h1{
+        font-size:24px;
+    }
+}
+
+/* MOBILE */
+@media (max-width: 480px){
+
+    body{
+        padding:10px;
+    }
+
+    nav{
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+    }
+
+    nav a{
+        width:100%;
+    }
+
+    .teams{
+        flex-direction:column;
+        align-items:center;
+        gap:20px;
+    }
+
+    .team{
+        max-width:100%;
+    }
+
+    .player{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:5px;
+    }
+
+    .btn{
+        width:100%;
+        margin:5px 0;
+    }
+
+    h1{
+        font-size:20px;
+    }
 }

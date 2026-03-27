@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Player</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -26,7 +27,7 @@
         <input type="text" id="lastname" required>
 
         <label>Age:</label>
-        <input type="number" id="age" min="1" required>
+        <input type="number" id="age" min="13" max="50" required>
 
         <label>Country:</label>
         <input type="text" id="country" required>
@@ -43,9 +44,15 @@
         <label>Team:</label>
         <select id="teamSelect" required></select>
 
+        <label>
+            Team Captain
+            <input type="checkbox" id="isCaptain">
+        </label>
+
         <div id="error" style="color:red; margin: 10px 0;"></div>
 
         <button type="submit">Save Changes</button>
+        <br><br>
         <button type="button" onclick="window.location='index.html'">Cancel</button>
     </form>
 
